@@ -32,7 +32,7 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.logic.HUE = 210;
+Blockly.Blocks.logic.HUE = 120;
 
 Blockly.Blocks['controls_if'] = {
   /**
@@ -44,9 +44,9 @@ Blockly.Blocks['controls_if'] = {
     this.setColour(Blockly.Blocks.logic.HUE);
     this.appendValueInput('IF0')
         .setCheck('Boolean')
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+        .appendField("when");
     this.appendStatementInput('DO0')
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        .appendField("");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setMutator(new Blockly.Mutator(['controls_if_elseif',
@@ -208,9 +208,12 @@ Blockly.Blocks['controls_if'] = {
     for (var i = 1; i <= this.elseifCount_; i++) {
       this.appendValueInput('IF' + i)
           .setCheck('Boolean')
-          .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
-      this.appendStatementInput('DO' + i)
-          .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+          .appendField("else when");
+          //.appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+          this.appendStatementInput('DO' + i)
+          .appendField('');
+/*      this.appendStatementInput('DO' + i)
+          .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);*/
     }
     if (this.elseCount_) {
       this.appendStatementInput('ELSE')
@@ -227,7 +230,8 @@ Blockly.Blocks['controls_if_if'] = {
   init: function() {
     this.setColour(Blockly.Blocks.logic.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
+        .appendField("when");
+        //.appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.CONTROLS_IF_IF_TOOLTIP);
     this.contextMenu = false;
@@ -242,7 +246,8 @@ Blockly.Blocks['controls_if_elseif'] = {
   init: function() {
     this.setColour(Blockly.Blocks.logic.HUE);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
+        .appendField("else when");
+        //.appendField(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP);
@@ -317,7 +322,7 @@ Blockly.Blocks['logic_compare'] = {
    * @param {!Blockly.Events.Abstract} e Change event.
    * @this Blockly.Block
    */
-  onchange: function(e) {
+/*  onchange: function(e) {
     var blockA = this.getInputTargetBlock('A');
     var blockB = this.getInputTargetBlock('B');
     // Disconnect blocks that existed prior to this change if they don't match.
@@ -337,7 +342,7 @@ Blockly.Blocks['logic_compare'] = {
     }
     this.prevBlocks_[0] = blockA;
     this.prevBlocks_[1] = blockB;
-  }
+  }*/
 };
 
 Blockly.Blocks['logic_operation'] = {

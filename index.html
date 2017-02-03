@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Seal Blocklyyy</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      background-color: #1bc767;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+    table {
+      height: 100%;
+      width: 100%;
+    }
+    #codeArea {
+      height: 100%;
+      width: 50%;
+      background: #5e8e3e;
+    }
+    #code_output {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      bottom: 0px;
+      background: #68a241;
+      border:1px solid black;
+      box-shadow: 0 0 10px #719ECE;
+      margin-right: 5px;
+    }
+
+    #container {
+      height:100%;
+      width:100%;
+    }
+
+    #top_menu {
+      width: 100%;
+      //height: auto;
+    }
+
+    #blocklyArea {
+      width: 50%;
+      height: 100%;
+      float:left;
+      //display: table-cell;
+      margin: 0px;
+    }
+
+    #blocklyDiv {
+      top: 0px !important;
+    }
+
+    #right_panel {
+      width: 50%;
+      height:99%;
+      //display: table-cell;
+      float:left;
+      padding: 0;
+      margin: 0;
+    }
+
+    #bot_container {
+      display: inline-block;
+      width:100%;
+      height:100%;
+    }
+
+
+
+  </style>
+
+  <script src="blockly_compressed.js"></script>
+  <script src="seal_compressed.js"></script>
+  <script src="blocks_compressed.js"></script>
+  <script src="msg/js/en.js"></script>
+
+  <xml id="toolbox" style="display: none">
+      <category name="Statements">
+        <block type="seal_use"></block>
+        <block type="seal_read"></block>
+        <block type="seal_output"></block>
+        <block type="lists_create_with"></block>
+      </category>
+      <category name="Parameters">
+        <block type="seal_period"></block>
+        <block type="seal_state"></block>
+      </category>
+      <category name="Control">
+        <block type="controls_if"></block>
+        <block type="controls_if_if"></block>
+        <block type="controls_if_elseif"></block>
+        <block type="controls_if_else"></block>
+      </category>
+      <category name="Logic">
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+      </category>
+      <category name="Values">
+        <block type="seal_number"></block>
+        <block type="seal_sensors"></block>
+        <block type="seal_struct"></block>
+      </category>
+</xml>
+
+</head>
+<body>
+<div id="container">
+
+  <div id="top_menu">
+    <h1>"BLOCKLY"</h1>
+        <p>Chicken Little only has to be right once.</p>
+        <p>
+          <button onclick="showCode()">Show code</button>
+          <button ">Show smth else</button>
+        </p>
+  </div>
+
+  <div id="bot_container">
+
+    <div id="blocklyArea">
+      <div id="blocklyDiv" style="height: auto; width: auto;"></div>
+    </div>
+
+    <div id="right_panel">
+      <textarea id="code_output" readonly></textarea>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function(){
+    //....
+  });
+
+  var blocklyArea = document.getElementById('blocklyArea');
+  var blocklyDiv = document.getElementById('blocklyDiv');
+  var workspace = Blockly.inject(blocklyDiv,
+      {toolbox: document.getElementById('toolbox')});
+  var onresize = function(e) {
+    // Compute the absolute coordinates and dimensions of blocklyArea.
+    var element = blocklyArea;
+    var x = 0;
+    var y = 0;
+    do {
+      x += element.offsetLeft;
+      y += element.offsetTop;
+      element = element.offsetParent;
+    } while (element);
+    // Position blocklyDiv over blocklyArea.
+    blocklyDiv.style.left = x + 'px';
+    blocklyDiv.style.top = y + 'px';
+    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+  };
+  window.addEventListener('resize', onresize, false);
+  onresize();
+  Blockly.svgResize(workspace);
+
+  function showCode() {
+  // Generate JavaScript code and display it.
+  Blockly.Seal.INFINITE_LOOP_TRAP = null;
+  var code = Blockly.Seal.workspaceToCode(workspace);
+  document.getElementById('code_output').value = code;
+  }
+
+</script> 
+
+</body>
+</html>
